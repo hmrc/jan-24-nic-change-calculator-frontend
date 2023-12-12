@@ -19,3 +19,8 @@ GET         /account/sign-out                            controllers.auth.AuthCo
 GET         /account/signed-out                          controllers.auth.SignedOutController.onPageLoad
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /annual-salary                                controllers.SalaryController.onPageLoad(mode: Mode = NormalMode)
+POST       /annual-salary                                controllers.SalaryController.onSubmit(mode: Mode = NormalMode)
+GET        /change-annual-salary                         controllers.SalaryController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-annual-salary                         controllers.SalaryController.onSubmit(mode: Mode = CheckMode)
