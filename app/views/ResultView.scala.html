@@ -1,0 +1,59 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.CurrencyFormatter.currencyFormat
+@import viewmodels.ResultViewModel
+
+@this(
+        layout: templates.Layout,
+        govukButton: GovukButton,
+        govukSummaryList: GovukSummaryList
+)
+
+@(viewModel: ResultViewModel)(implicit request: Request[_], messages: Messages)
+
+@layout(pageTitle = titleNoForm(messages("result.title"))) {
+
+    <h1 class="govuk-heading-xl">@messages("result.heading")</h1>
+
+    <div class="govuk-panel govuk-panel--confirmation text-overflow">
+        <h2 class="govuk-panel__title">
+            @if(viewModel.calculation.roundedSaving == 0) {
+                @messages("result.heading.noDifference")
+            } else {
+                @messages("result.heading.lessNiDue", Html(currencyFormat(viewModel.calculation.roundedSaving)).toString)
+            }
+        </h2>
+    </div>
+
+    <h2 class="govuk-heading-m">@messages("result.h2")</h2>
+
+    <div class="results">
+        @govukSummaryList(viewModel.summaryList)
+    </div>
+
+    <p class="govuk-body">@messages("result.guidance.p1")</p>
+    <p class="govuk-body">@messages("result.guidance.p2")</p>
+
+    <p class="govuk-body">
+        @messages("result.guidance.p3")
+        <a href="@messages("result.guidance.link.href")" class="govuk-link">@messages("result.guidance.link.text")</a>.
+    </p>
+
+    <a href="@routes.SalaryController.onPageLoad(NormalMode)" class="govuk-button">
+        @messages("site.startAgain")
+    </a>
+}
