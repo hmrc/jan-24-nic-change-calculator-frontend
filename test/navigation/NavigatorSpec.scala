@@ -34,6 +34,11 @@ class NavigatorSpec extends SpecBase {
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, NormalMode, UserAnswers("id")) mustBe routes.IndexController.onPageLoad
       }
+
+      "must go from Salary to Result" in {
+
+        navigator.nextPage(SalaryPage, NormalMode, emptyUserAnswers) mustBe routes.ResultController.onPageLoad
+      }
     }
 
     "in Check mode" - {
