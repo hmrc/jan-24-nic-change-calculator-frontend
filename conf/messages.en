@@ -1,4 +1,4 @@
-service.name = jan-24-nic-change-calculator-frontend
+service.name = Estimate how the January 2024 National Insurance contributions changes will affect you
 
 site.back = Back
 site.remove = Remove
@@ -38,10 +38,6 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-index.title = jan-24-nic-change-calculator-frontend
-index.heading = jan-24-nic-change-calculator-frontend
-index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
-
 checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 
@@ -59,48 +55,41 @@ signedOut.guidance = We did not save your answers.
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
-salary.title = What is your annual salary?
-salary.heading = What is your annual salary?
+salary.title = How much is your annual salary?
+salary.heading = How much is your annual salary?
 salary.checkYourAnswersLabel = Annual salary
-salary.error.nonNumeric = Enter your annual salary using numbers
+salary.error.nonNumeric = Enter your annual salary using only numbers 0 to 9 and a decimal point
 salary.error.required = Enter your annual salary
-salary.error.invalidNumeric = Enter your annual salary using up to two decimal places
-salary.error.belowMinimum = Annual salary must be at least £1
-salary.error.aboveMaximum = Annual salary must be £1,000,000,000 or less
+salary.error.invalidNumeric = Enter your annual salary using up to two decimal places, like 10.75
+salary.error.belowMinimum = Your annual salary must be at least £1
+salary.error.aboveMaximum = Your annual salary must be £1,000,000,000 or less
 salary.change.hidden = your annual salary
 
 result.title = Your estimated National Insurance contributions change
 result.heading = Your estimated National Insurance contributions change
-result.heading.noDifference = You are estimated to have no change
+result.heading.noDifference = You are not estimated to have a change
 result.heading.lessNiDue = You are estimated to pay {0} less
 result.h2 = Your estimated National Insurance contributions (NICs) summary
-result.guidance.p1 = This result provides an estimate of your NICs from 6 January 2024 to 5 January 2025 compared to NICs paid from 6 January 2023 to 6 January 2024, so this is not an accurate calculation of your actual liability.
-result.guidance.p2 = NICs are administered in year by your employer, so if you have any questions about your payslip and how the changes have been applied, contact your employer in the first instance.
-result.guidance.p3 = Find out more about available resources to help with
-result.guidance.link.text = the cost of living
+result.guidance.p1.lessNiDue = You will be {0} better off from 6 January 2024 to 5 January 2025, compared to the previous year due to the 2% cut to National Insurance. This is not an accurate calculation of your actual liability.
+result.guidance.p1.noDifference = As you are under the £12,750 Personal Allowance threshold, there will be no change to the amount National Insurance contributions you will pay due to the cut to National Insurance.
+result.guidance.p2 = NICs are administered ‘in year’ by your employer. If you have any questions about your payslip and how the changes have been applied, you must contact your employer in the first instance.
+result.guidance.p3 = Find out more about
+result.guidance.link.text = available resources to help with the cost of living
 result.guidance.link.href = https://costoflivingsupport.campaign.gov.uk/
-result.annualSalary = Annual salary
-result.annualSalary.hint = (you told us this)
+result.annualSalary = Annual salary you provided
 result.period1 = Estimated NICs due from 6 January 2023 to 5 January 2024
-result.period2 = Estimated NICs due from  6 January 2024 to 5 January 2025
+result.period2 = Estimated NICs due from 6 January 2024 to 5 January 2025
 
-index.title = Estimate how the National Insurance contributions changes will affect you
-index.heading = Estimate how the National Insurance contributions changes will affect you
+index.title = Estimate how the January 2024 National Insurance contributions changes will affect you
+index.heading = Estimate how the January 2024 National Insurance contributions changes will affect you
 index.lede = Use this tool to get an estimate of how the changes to National Insurance contributions will affect you.
-index.guidance.p1 = From 6 July 2022, as an employee you will be able to earn more before you start paying National Insurance. This means you may pay less tax, after accounting for the recent Health and Social Care Levy.
-index.guidance.p2.1 = This tool will estimate how the changes to the
-index.guidance.p2.link1.text = Primary Threshold
-index.guidance.p2.link1.href = https://www.gov.uk/government/publications/national-insurance-primary-threshold-and-the-lower-profits-limit-increase-and-associated-class-2-changes-in-2022-to-2023-tax-year
-index.guidance.p2.2 = and the
-index.guidance.p2.link2.text = Health and Social Care Levy
-index.guidance.p2.link2.href = https://www.gov.uk/guidance/prepare-for-the-health-and-social-care-levy
-index.guidance.p2.3 = will affect the amount of National Insurance contributions you pay.
-index.guidance.p3 = If you’re self-employed the amount of profit you can earn before you pay National Insurance contributions is also increasing. However, you will not be able to use this tool to get an estimate. You can find out more information about this change and other important changes, which will tell you
-index.guidance.p3.link.text = how you’ll pay National Insurance contributions
-index.guidance.p3.link.href = https://www.gov.uk/government/publications/national-insurance-primary-threshold-and-the-lower-profits-limit-increase-and-associated-class-2-changes-in-2022-to-2023-tax-year
+index.guidance.p1 = From 6 January 2024, as an employee the National Insurance contributions rate will drop.
+index.guidance.p2.1 = If you’re self-employed the amount of profit you can earn before you pay National Insurance contributions is also increasing. However, you will not be able to use this tool to get an estimate. You can find out more information about this change and other important changes,
+index.guidance.p2.link.text = which will tell you how you’ll pay National Insurance contributions
+index.guidance.p2.link.href = https://www.gov.uk/government/publications/changes-to-national-insurance-contributions-from-6-january-2024
 index.beforeYouStart = Before you start
-index.guidance.p4 = You can use this tool to get an estimate if you’re employed and paid the same amount monthly, by your employer through the PAYE system.
-index.guidance.p5 =You will not get a useful result if you have different working arrangements for the period from 6 January 2023 to 5 January 2025, including if:
+index.guidance.p4 = You can get an estimate if you’re employed and paid the same amount monthly, by your employer through the PAYE system.
+index.guidance.p5 = You will not get a useful result if you have different working arrangements for the period from 6 January 2023 to 5 January 2025, including if:
 index.guidance.bullet1 = you’re not liable to pay the main rate of UK Class 1 National Insurance contributions at the standard rate on your earnings or profits — for example:
 index.guidance.bullet1.bullet1 = you’re over state pension age
 index.guidance.bullet1.bullet2 = you’re self-employed

@@ -25,4 +25,4 @@ POST       /annual-salary                                controllers.SalaryContr
 GET        /change-annual-salary                         controllers.SalaryController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-annual-salary                         controllers.SalaryController.onSubmit(mode: Mode = CheckMode)
 
-GET        /estimated-change                             controllers.ResultController.onPageLoad()
+GET        /estimate                                     controllers.ResultController.onPageLoad()

@@ -34,7 +34,7 @@
             @if(viewModel.calculation.roundedSaving == 0) {
                 @messages("result.heading.noDifference")
             } else {
-                @messages("result.heading.lessNiDue", Html(currencyFormat(viewModel.calculation.roundedSaving)).toString)
+                @messages("result.heading.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving))
             }
         </h2>
     </div>
@@ -45,7 +45,12 @@
         @govukSummaryList(viewModel.summaryList)
     </div>
 
-    <p class="govuk-body">@messages("result.guidance.p1")</p>
+    @if(viewModel.calculation.roundedSaving == 0) {
+        <p class="govuk-body">@messages("result.guidance.p1.noDifference")</p>
+    } else {
+        <p class="govuk-body">@messages("result.guidance.p1.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving))</p>
+    }
+
     <p class="govuk-body">@messages("result.guidance.p2")</p>
 
     <p class="govuk-body">
