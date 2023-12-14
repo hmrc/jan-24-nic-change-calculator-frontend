@@ -32,7 +32,7 @@ case class ResultViewModel(calculation: Calculation)(implicit messages: Messages
   private val rows: List[SummaryListRow] = List(
     SummaryListRowViewModel(
       key     = s"result.annualSalary",
-      value   = ValueViewModel(s"${currencyFormat(calculation.annualSalary)} ${messages("result.annualSalary.hint")}"),
+      value   = ValueViewModel(currencyFormat(calculation.annualSalary)),
       actions = Nil
     ),
     SummaryListRowViewModel(
