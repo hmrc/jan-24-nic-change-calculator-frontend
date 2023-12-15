@@ -16,26 +16,35 @@
 
 package controllers
 
+import audit.AuditService
 import base.SpecBase
 import models.Calculation
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
+import org.mockito.Mockito.{times, verify}
+import org.scalatestplus.mockito.MockitoSugar
 import pages.SalaryPage
+import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import viewmodels.ResultViewModel
 import views.html.ResultView
 
-class ResultControllerSpec extends SpecBase {
+class ResultControllerSpec extends SpecBase with MockitoSugar {
 
   "Result Controller" - {
 
-    "must return OK and the correct view for a GET" in {
+    "must audit the calculation and return OK and the correct view for a GET" in {
 
       val salary = BigDecimal(1)
 
       val answers = emptyUserAnswers.set(SalaryPage, salary).success.value
 
+      val mockAuditService = mock[AuditService]
+
       val application =
-        applicationBuilder(userAnswers = Some(answers)).build()
+        applicationBuilder(userAnswers = Some(answers))
+          .overrides(bind[AuditService].toInstance(mockAuditService))
+          .build()
 
       running(application) {
         val request = FakeRequest(GET, routes.ResultController.onPageLoad().url)
@@ -48,6 +57,7 @@ class ResultControllerSpec extends SpecBase {
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(viewModel)(request, messages(application)).toString
+        verify(mockAuditService, times(1)).auditCalculation(eqTo(calculation))(any())
       }
     }
   }

@@ -16,6 +16,7 @@
 
 package controllers
 
+import audit.AuditService
 import controllers.actions._
 import models.Calculation
 import pages.SalaryPage
@@ -33,7 +34,8 @@ class ResultController @Inject()(
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,
                                   val controllerComponents: MessagesControllerComponents,
-                                  view: ResultView
+                                  view: ResultView,
+                                  auditService: AuditService
                                 ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
@@ -42,6 +44,8 @@ class ResultController @Inject()(
       request.userAnswers.get(SalaryPage).map(Calculation(_))
         .map {
           calculation =>
+            auditService.auditCalculation(calculation)
+
             val viewModel = ResultViewModel(calculation)
 
             Ok(view(viewModel))
