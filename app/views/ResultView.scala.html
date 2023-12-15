@@ -25,7 +25,7 @@
 
 @(viewModel: ResultViewModel)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = titleNoForm(messages("result.title"))) {
+@layout(pageTitle = titleNoForm(messages("result.title")), timeout = true) {
 
     <h1 class="govuk-heading-xl">@messages("result.heading")</h1>
 
