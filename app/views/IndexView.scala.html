@@ -21,7 +21,7 @@
 @()(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = titleNoForm(messages("index.title")),
+    pageTitle = s"${messages("index.title")} - ${messages("site.govuk")}",
     timeout   = false
 ) {
 
