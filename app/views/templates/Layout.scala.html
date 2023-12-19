@@ -17,6 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
+@import views.html.helper.CSPNonce
 
 @this(
     appConfig: FrontendAppConfig,
@@ -57,7 +58,7 @@
 }
 
 @additionalScripts = {
-    <script src='@controllers.routes.Assets.versioned("javascripts/application.js")'></script>
+    <script src='@controllers.routes.Assets.versioned("javascripts/application.js")' @CSPNonce.attr></script>
 }
 
 @beforeContent = {
