@@ -26,7 +26,10 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages(s"salary.title"))) {
+@layout(
+    pageTitle = title(form, messages(s"salary.title")),
+    backLink = Some(BackLinkViewModel(href = routes.IndexController.onPageLoad.url).withContent(messages("salary.backToGuidance")))
+) {
 
     @formHelper(action = routes.SalaryController.onSubmit(mode), 'autoComplete -> "off") {
 

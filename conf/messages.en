@@ -42,6 +42,7 @@ journeyRecovery.startAgain.heading = Sorry, there is a problem with the service
 answersDeleted.title = We deleted your answers
 answersDeleted.heading = We deleted your answers
 
+salary.backToGuidance = Back to guidance
 salary.title = How much is your annual salary?
 salary.heading = How much is your annual salary?
 salary.error.nonNumeric = Enter your annual salary using only numbers 0 to 9 and a decimal point
@@ -50,8 +51,8 @@ salary.error.invalidNumeric = Enter your annual salary using up to two decimal p
 salary.error.belowMinimum = Your annual salary must be at least £1
 salary.error.aboveMaximum = Your annual salary must be £1,000,000,000 or less
 
-result.title = Your estimated National Insurance contributions change
-result.heading = Your estimated National Insurance contributions change
+result.title.noDifference = You are not estimated to see any change
+result.title.lessNiDue = You are estimated to pay less
 result.heading.noDifference = You are not estimated to see any change
 result.heading.lessNiDue = You are estimated to pay {0} less
 result.h2 = Your estimated National Insurance contributions (NICs) summary

@@ -40,5 +40,8 @@ trait BackLinkFluency {
 
     def withAttribute(attribute: (String, String)): BackLink =
       backLink.copy(attributes = backLink.attributes + attribute)
+
+    def withContent(content: String): BackLink =
+      backLink.copy(content = Text(content))
   }
 }

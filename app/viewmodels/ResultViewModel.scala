@@ -48,5 +48,5 @@ case class ResultViewModel(calculation: Calculation)(implicit messages: Messages
   )
 
   val summaryList: SummaryList =
-    SummaryList(rows)
+    SummaryList(rows).withCssClass("govuk-summary-list--long-key")
 }

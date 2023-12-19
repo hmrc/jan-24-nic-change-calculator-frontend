@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 
 @this(
     appConfig: FrontendAppConfig,
@@ -32,7 +33,7 @@
     betaBanner: StandardBetaBanner
 )
 
-@(pageTitle: String, showBackLink: Boolean = false, timeout: Boolean = false, showSignOut: Boolean = false)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
+@(pageTitle: String, backLink: Option[BackLink] = None, timeout: Boolean = false, showSignOut: Boolean = false)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
 
 @head = {
 
@@ -69,8 +70,8 @@
         ))
     }
 
-    @if(showBackLink) {
-        @govukBackLink(BackLinkViewModel(href = "#").withCssClass("js-visible"))
+    @backLink.map { viewModel =>
+        @govukBackLink(viewModel)
     }
 }
 

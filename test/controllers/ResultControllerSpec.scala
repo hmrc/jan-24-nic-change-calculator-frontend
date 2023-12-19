@@ -17,14 +17,21 @@
 package controllers
 
 import base.SpecBase
-import models.Calculation
+import models.{Calculation, NormalMode}
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
+import org.mockito.Mockito.{times, verify, when}
+import org.scalatestplus.mockito.MockitoSugar
 import pages.SalaryPage
+import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepository
 import viewmodels.ResultViewModel
 import views.html.ResultView
 
-class ResultControllerSpec extends SpecBase {
+import scala.concurrent.Future
+
+class ResultControllerSpec extends SpecBase with MockitoSugar {
 
   "Result Controller" - {
 
@@ -47,6 +54,31 @@ class ResultControllerSpec extends SpecBase {
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(viewModel)(request, messages(application)).toString
+      }
+    }
+
+    "must clear user's answers and direct to salary page when starting again" in {
+
+      val salary = BigDecimal(1)
+
+      val answers = emptyUserAnswers.set(SalaryPage, salary).success.value
+
+      val mockSessionRepository = mock[SessionRepository]
+
+      when(mockSessionRepository.clear(any())).thenReturn(Future.successful(true))
+
+      val application = applicationBuilder(Some(answers))
+        .overrides(bind[SessionRepository].toInstance(mockSessionRepository))
+        .build()
+
+      running(application) {
+        val request = FakeRequest(POST, routes.ResultController.onSubmit().url)
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.SalaryController.onPageLoad(NormalMode).url
+        verify(mockSessionRepository, times(1)).clear(eqTo(answers.id))
       }
     }
   }
