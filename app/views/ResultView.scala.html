@@ -27,18 +27,23 @@
 
 @(viewModel: ResultViewModel)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = titleNoForm(messages("result.title")), timeout = true) {
-
-    <h1 class="govuk-heading-xl">@messages("result.heading")</h1>
+@layout(
+    pageTitle = if(viewModel.calculation.roundedSaving == 0) {
+        titleNoForm(messages("result.title.noDifference"))
+    } else {
+        titleNoForm(messages("result.title.lessNiDue"))
+    },
+    timeout = true
+) {
 
     <div class="govuk-panel govuk-panel--confirmation text-overflow">
-        <h2 class="govuk-panel__title">
+        <h1 class="govuk-panel__title">
             @if(viewModel.calculation.roundedSaving == 0) {
                 @messages("result.heading.noDifference")
             } else {
                 @messages("result.heading.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving))
             }
-        </h2>
+        </h1>
     </div>
 
     <h2 class="govuk-heading-m">@messages("result.h2")</h2>
