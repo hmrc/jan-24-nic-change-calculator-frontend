@@ -22,6 +22,7 @@
         layout: templates.Layout,
         govukButton: GovukButton,
         govukSummaryList: GovukSummaryList,
+        formHelper: FormWithCSRF,
         newTabLink: HmrcNewTabLinkHelper
 )
 
@@ -68,7 +69,9 @@
         @newTabLink(NewTabLinkHelper(text = messages("result.guidance.link.text"), href = Some(messages("result.guidance.link.href")))).
     </p>
 
-    <a href="@routes.SalaryController.onPageLoad(NormalMode)" class="govuk-button">
-        @messages("site.startAgain")
-    </a>
+    @formHelper(action = routes.ResultController.onSubmit()) {
+        @govukButton(
+            ButtonViewModel(messages("site.startAgain"))
+        )
+    }
 }

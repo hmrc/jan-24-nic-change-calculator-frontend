@@ -17,15 +17,17 @@
 package controllers
 
 import controllers.actions._
-import models.Calculation
+import models.{Calculation, NormalMode}
 import pages.SalaryPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import viewmodels.ResultViewModel
 import views.html.ResultView
 
 import javax.inject.Inject
+import scala.concurrent.ExecutionContext
 
 class ResultController @Inject()(
                                   override val messagesApi: MessagesApi,
@@ -33,8 +35,9 @@ class ResultController @Inject()(
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,
                                   val controllerComponents: MessagesControllerComponents,
-                                  view: ResultView
-                                ) extends FrontendBaseController with I18nSupport {
+                                  view: ResultView,
+                                  sessionRepository: SessionRepository
+                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
@@ -46,5 +49,13 @@ class ResultController @Inject()(
 
             Ok(view(viewModel))
         }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
+  }
+
+  def onSubmit: Action[AnyContent] = identify.async {
+    implicit request =>
+
+      sessionRepository.clear(request.userId).map { _ =>
+        Redirect(routes.SalaryController.onPageLoad(NormalMode))
+      }
   }
 }
