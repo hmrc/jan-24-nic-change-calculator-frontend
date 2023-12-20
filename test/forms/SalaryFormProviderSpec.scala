@@ -31,11 +31,10 @@ class SalaryFormProviderSpec extends CurrencyFieldBehaviours {
 
     val fieldName = "value"
 
-    val minimum = BigDecimal(1)
     val maximum = BigDecimal(1000000000)
 
     val validDataGenerator =
-      Gen.choose[BigDecimal](minimum, maximum)
+      Gen.choose[BigDecimal](0, maximum)
         .map(_.setScale(2, RoundingMode.HALF_UP))
         .map(_.toString)
 
@@ -50,13 +49,6 @@ class SalaryFormProviderSpec extends CurrencyFieldBehaviours {
       fieldName,
       nonNumericError  = FormError(fieldName, "salary.error.nonNumeric"),
       invalidNumericError = FormError(fieldName, "salary.error.invalidNumeric")
-    )
-
-    behave like currencyFieldWithMinimum(
-      form,
-      fieldName,
-      minimum,
-      FormError(fieldName, "salary.error.belowMinimum", Seq(CurrencyFormatter.currencyFormat(minimum)))
     )
 
     behave like currencyFieldWithMaximum(

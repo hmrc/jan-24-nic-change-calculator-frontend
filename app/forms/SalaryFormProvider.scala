@@ -29,7 +29,6 @@ class SalaryFormProvider @Inject() extends Mappings {
         s"salary.error.required",
         s"salary.error.invalidNumeric",
         s"salary.error.nonNumeric")
-        .verifying(minimumCurrency(1, s"salary.error.belowMinimum"))
         .verifying(maximumCurrency(1000000000, s"salary.error.aboveMaximum"))
     )
 }
