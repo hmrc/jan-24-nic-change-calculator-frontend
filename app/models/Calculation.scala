@@ -16,6 +16,9 @@
 
 package models
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+
 import scala.math.BigDecimal.RoundingMode.HALF_DOWN
 
 final case class Calculation private(
@@ -46,4 +49,11 @@ object Calculation {
 
     Calculation(annualSalary, year1EstimatedNic, year2EstimatedNic)
   }
+
+  implicit lazy val writes: OWrites[Calculation] = (
+    (__ \ "annualSalary").write[BigDecimal] and
+    (__ \ "year1EstimatedNic").write[BigDecimal] and
+    (__ \ "year2EstimatedNic").write[BigDecimal] and
+    (__ \ "roundedSaving").write[BigDecimal]
+  )(c => (c.annualSalary, c.year1EstimatedNic, c.year2EstimatedNic, c.roundedSaving))
 }

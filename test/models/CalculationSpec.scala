@@ -20,6 +20,7 @@ import org.scalacheck.Gen
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.libs.json.Json
 
 class CalculationSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks {
 
@@ -126,6 +127,23 @@ class CalculationSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyC
         salary =>
           Calculation(salary).roundedSaving mustEqual BigDecimal(754)
       }
+    }
+  }
+
+  "a calculation" - {
+
+    "must serialise to json" in {
+
+      val calculation = Calculation(20000)
+
+      val expectedJson = Json.obj(
+        "annualSalary" -> 20000,
+        "year1EstimatedNic" -> 891.60,
+        "year2EstimatedNic" -> 743,
+        "roundedSaving" -> 149
+      )
+
+      Json.toJson(calculation) mustEqual expectedJson
     }
   }
 }
