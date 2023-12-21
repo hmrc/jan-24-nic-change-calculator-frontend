@@ -79,7 +79,7 @@ class CalculationConnectorSpec
           .willReturn(badRequest())
       )
 
-      connector.submit(calculation).failed.futureValue
+      val x = connector.submit(calculation).failed.futureValue
     }
   }
 }

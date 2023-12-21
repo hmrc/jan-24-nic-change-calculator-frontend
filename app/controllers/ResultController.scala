@@ -16,9 +16,11 @@
 
 package controllers
 
+import connectors.CalculationConnector
 import controllers.actions._
 import models.{Calculation, NormalMode}
 import pages.SalaryPage
+import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -27,7 +29,7 @@ import viewmodels.ResultViewModel
 import views.html.ResultView
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class ResultController @Inject()(
                                   override val messagesApi: MessagesApi,
@@ -36,10 +38,12 @@ class ResultController @Inject()(
                                   requireData: DataRequiredAction,
                                   val controllerComponents: MessagesControllerComponents,
                                   view: ResultView,
-                                  sessionRepository: SessionRepository
-                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+                                  sessionRepository: SessionRepository,
+                                  calculationConnector: CalculationConnector
+                                )(implicit ec: ExecutionContext)
+  extends FrontendBaseController with I18nSupport with Logging {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
       request.userAnswers.get(SalaryPage).map(Calculation(_))
@@ -47,8 +51,13 @@ class ResultController @Inject()(
           calculation =>
             val viewModel = ResultViewModel(calculation)
 
-            Ok(view(viewModel))
-        }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
+            calculationConnector.submit(calculation).map { _ =>
+              Ok(view(viewModel))
+            }.recover { e: Throwable =>
+              logger.error(s"Failed to send calculation to backend: ${e.getMessage}")
+              Ok(view(viewModel))
+            }
+        }.getOrElse(Future.successful(Redirect(routes.JourneyRecoveryController.onPageLoad())))
   }
 
   def onSubmit: Action[AnyContent] = identify.async {
