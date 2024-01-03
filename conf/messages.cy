@@ -16,7 +16,7 @@ timeout.message = Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
 timeout.keepAlive = Yn eich blaen
 timeout.signOut = Dileu’ch atebion
 
-error.browser.title.prefix = Gwall:
+error.prefix = Gwall:
 error.summary.title = Mae problem wedi codi
 
 journeyRecovery.continue.title = Mae’n ddrwg gennym – mae problem gyda’r gwasanaeth

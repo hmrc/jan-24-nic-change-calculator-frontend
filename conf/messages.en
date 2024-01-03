@@ -16,7 +16,7 @@ timeout.message = We will delete your answers in
 timeout.keepAlive = Continue
 timeout.signOut = Delete your answers
 
-error.browser.title.prefix = Error:
+error.prefix = Error:
 error.summary.title = There is a problem
 
 journeyRecovery.continue.title = Sorry, there is a problem with the service
