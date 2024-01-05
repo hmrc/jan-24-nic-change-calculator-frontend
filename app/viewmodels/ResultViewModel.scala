@@ -19,6 +19,8 @@ package viewmodels
 import config.CurrencyFormatter.currencyFormat
 import models.Calculation
 import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.Aliases.Key
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.{SummaryList, SummaryListRow}
 import viewmodels.govuk.summarylist._
 import viewmodels.implicits._
@@ -36,12 +38,12 @@ case class ResultViewModel(calculation: Calculation)(implicit messages: Messages
       actions = Nil
     ),
     SummaryListRowViewModel(
-      key    = messages("result.period1"),
+      key    = Key(HtmlContent(messages("result.period1"))),
       value  = ValueViewModel(currencyFormat(calculation.year1EstimatedNic)),
       actions = Nil
     ),
     SummaryListRowViewModel(
-      key    = messages("result.period2"),
+      key    = Key(HtmlContent(messages("result.period2"))),
       value  = ValueViewModel(currencyFormat(calculation.year2EstimatedNic)),
       actions = Nil
     )
