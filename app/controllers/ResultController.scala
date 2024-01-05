@@ -35,7 +35,6 @@ class ResultController @Inject()(
                                   override val messagesApi: MessagesApi,
                                   identify: IdentifierAction,
                                   getData: DataRetrievalAction,
-                                  requireData: DataRequiredAction,
                                   val controllerComponents: MessagesControllerComponents,
                                   view: ResultView,
                                   sessionRepository: SessionRepository,
@@ -43,21 +42,26 @@ class ResultController @Inject()(
                                 )(implicit ec: ExecutionContext)
   extends FrontendBaseController with I18nSupport with Logging {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onPageLoad: Action[AnyContent] = (identify andThen getData).async {
     implicit request =>
 
-      request.userAnswers.get(SalaryPage).map(Calculation(_))
-        .map {
-          calculation =>
-            val viewModel = ResultViewModel(calculation)
+      request.userAnswers.flatMap { answers =>
+        answers.get(SalaryPage).map(Calculation(_))
+          .map {
+            calculation =>
+              val viewModel = ResultViewModel(calculation)
 
-            calculationConnector.submit(calculation).map { _ =>
-              Ok(view(viewModel))
-            }.recover { e: Throwable =>
-              logger.error(s"Failed to send calculation to backend: ${e.getMessage}")
-              Ok(view(viewModel))
-            }
-        }.getOrElse(Future.successful(Redirect(routes.JourneyRecoveryController.onPageLoad())))
+              calculationConnector.submit(calculation).map { _ =>
+                Ok(view(viewModel))
+              }.recover { e: Throwable =>
+                logger.error(s"Failed to send calculation to backend: ${e.getMessage}")
+                Ok(view(viewModel))
+              }
+      }
+    }.getOrElse {
+        logger.warn("User has no user answers, redirecting to the guidance page")
+        Future.successful(Redirect(routes.IndexController.onPageLoad))
+      }
   }
 
   def onSubmit: Action[AnyContent] = identify.async {
