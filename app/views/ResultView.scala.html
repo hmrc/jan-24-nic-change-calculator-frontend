@@ -59,7 +59,7 @@
             @newTabLink(NewTabLinkHelper(text = messages("result.guidance.p1.noDifference.link.text"), href = Some(messages("result.guidance.p1.noDifference.link.href"))))@messages("result.guidance.p1.noDifference.2")
         </p>
     } else {
-        <p class="govuk-body">@messages("result.guidance.p1.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving))</p>
+        <p class="govuk-body">@Html(messages("result.guidance.p1.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving)))</p>
     }
 
     <p class="govuk-body">@messages("result.guidance.p2")</p>
