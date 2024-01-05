@@ -94,6 +94,22 @@ class ResultControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
+    "must redirect to Index when the user does not have an answer saved" in {
+
+      val application =
+        applicationBuilder(userAnswers = None)
+          .build()
+
+      running(application) {
+        val request = FakeRequest(GET, routes.ResultController.onPageLoad().url)
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.IndexController.onPageLoad.url
+      }
+    }
+
     "must clear user's answers and direct to salary page when starting again" in {
 
       val salary = BigDecimal(1)
