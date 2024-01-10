@@ -16,10 +16,19 @@
 
 package models
 
+import models.OverallResult._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 import scala.math.BigDecimal.RoundingMode.HALF_DOWN
+
+sealed trait OverallResult
+
+object OverallResult {
+  case object NoDifference extends OverallResult
+  case object MinimalDifference extends OverallResult
+  case object LessNiDue extends OverallResult
+}
 
 final case class Calculation private(
                                       annualSalary: BigDecimal,
@@ -27,8 +36,16 @@ final case class Calculation private(
                                       year2EstimatedNic: BigDecimal
                                     ) {
 
+  lazy val saving: BigDecimal =
+    year1EstimatedNic - year2EstimatedNic
+
   lazy val roundedSaving: BigDecimal =
-    (year1EstimatedNic - year2EstimatedNic).setScale(0, HALF_DOWN)
+    saving.setScale(0, HALF_DOWN)
+
+  lazy val overallResult: OverallResult =
+    if (saving == 0)             NoDifference
+    else if (roundedSaving == 0) MinimalDifference
+    else                         LessNiDue
 }
 
 object Calculation {

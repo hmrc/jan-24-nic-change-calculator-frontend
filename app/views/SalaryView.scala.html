@@ -40,8 +40,9 @@
         @govukInput(
             InputViewModel(
                 field = form("value"),
-                label = LabelViewModel(messages(s"salary.heading")).asPageHeading()
+                label = LabelViewModel(messages("salary.heading")).asPageHeading()
             )
+            .withHint(HintViewModel(content = messages("salary.hint")))
             .withWidth(Fixed10)
             .withPrefix(PrefixOrSuffix(content = "£"))
         )
