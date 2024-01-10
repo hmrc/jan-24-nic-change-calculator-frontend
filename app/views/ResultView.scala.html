@@ -15,6 +15,7 @@
  *@
 
 @import config.CurrencyFormatter.currencyFormat
+@import models.OverallResult._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
 @import viewmodels.ResultViewModel
 
@@ -29,8 +30,10 @@
 @(viewModel: ResultViewModel)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = if(viewModel.calculation.roundedSaving == 0) {
+    pageTitle = if(viewModel.calculation.overallResult == NoDifference) {
         titleNoForm(messages("result.title.noDifference"))
+    } else if(viewModel.calculation.overallResult == MinimalDifference) {
+        titleNoForm(messages("result.title.minimalDifference"))
     } else {
         titleNoForm(messages("result.title.lessNiDue"))
     },
@@ -39,8 +42,10 @@
 
     <div class="govuk-panel govuk-panel--confirmation text-overflow">
         <h1 class="govuk-panel__title">
-            @if(viewModel.calculation.roundedSaving == 0) {
+            @if(viewModel.calculation.overallResult == NoDifference) {
                 @messages("result.heading.noDifference")
+            } else if(viewModel.calculation.overallResult == MinimalDifference) {
+                @messages("result.heading.minimalDifference")
             } else {
                 @messages("result.heading.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving))
             }
@@ -53,11 +58,13 @@
         @govukSummaryList(viewModel.summaryList)
     </div>
 
-    @if(viewModel.calculation.roundedSaving == 0) {
+    @if(viewModel.calculation.overallResult == NoDifference) {
         <p class="govuk-body">
             @messages("result.guidance.p1.noDifference.1")
             @newTabLink(NewTabLinkHelper(text = messages("result.guidance.p1.noDifference.link.text"), href = Some(messages("result.guidance.p1.noDifference.link.href"))))@messages("result.guidance.p1.noDifference.2")
         </p>
+    } else if(viewModel.calculation.overallResult == MinimalDifference) {
+        <p class="govuk-body">@messages("result.guidance.p1.minimalDifference")</p>
     } else {
         <p class="govuk-body">@Html(messages("result.guidance.p1.lessNiDue", currencyFormat(viewModel.calculation.roundedSaving)))</p>
     }
@@ -66,7 +73,13 @@
 
     <p class="govuk-body">
         @messages("result.guidance.p3")
-        @newTabLink(NewTabLinkHelper(text = messages("result.guidance.link.text"), href = Some(messages("result.guidance.link.href")))).
+        @newTabLink(NewTabLinkHelper(text = messages("result.guidance.p3.link.text"), href = Some(messages("result.guidance.p3.link.href")))).
+    </p>
+
+    <p class="govuk-body">
+        @messages("result.guidance.p4.1")
+        <a href="@messages("result.guidance.p4.link.href")" class="govuk-link" target="_blank" rel="noopener noreferrer">@messages("result.guidance.p4.link.text")</a>
+        @messages("result.guidance.p4.2")
     </p>
 
     @formHelper(action = routes.ResultController.onSubmit()) {
