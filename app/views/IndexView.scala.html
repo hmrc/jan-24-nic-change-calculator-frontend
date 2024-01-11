@@ -14,11 +14,8 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
-
 @this(
-        layout: templates.Layout,
-        newTabLink: HmrcNewTabLinkHelper
+        layout: templates.Layout
 )
 
 @()(implicit request: Request[_], messages: Messages)
@@ -36,7 +33,7 @@
 
     <p class="govuk-body">
         @messages("index.guidance.p2.1")
-        @newTabLink(NewTabLinkHelper(text = messages("index.guidance.p2.link.text"), href = Some(messages("index.guidance.p2.link.href")))).
+        <a href="@messages("index.guidance.p2.link.href")" class="govuk-link" target="_blank" rel="noopener noreferrer">@messages("index.guidance.p2.link.text")</a>.
         @messages("index.guidance.p2.2")
     </p>
 
