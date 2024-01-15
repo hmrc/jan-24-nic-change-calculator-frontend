@@ -16,7 +16,8 @@ timeout.message = We will delete your answers in
 timeout.keepAlive = Continue
 timeout.signOut = Delete your answers
 
-error.prefix = Error:
+error.title.prefix = Error:
+error.prefix = Error
 error.summary.title = There is a problem
 
 journeyRecovery.continue.title = Sorry, there is a problem with the service
@@ -30,7 +31,7 @@ answersDeleted.heading = We deleted your answers
 salary.backToGuidance = Back to guidance
 salary.title = How much is your annual salary?
 salary.heading = How much is your annual salary?
-salary.hint = For example, 13000 or 15959.55
+salary.hint = For example, £13000 or £15,959.55
 salary.error.nonNumeric = Enter your annual salary using only numbers 0 to 9 and a decimal point
 salary.error.required = Enter your annual salary
 salary.error.invalidNumeric = Enter your annual salary using up to two decimal places, like 10.75
