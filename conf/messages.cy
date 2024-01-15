@@ -16,7 +16,8 @@ timeout.message = Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
 timeout.keepAlive = Yn eich blaen
 timeout.signOut = Dileu’ch atebion
 
-error.prefix = Gwall:
+error.title.prefix = Gwall:
+error.prefix = Gwall
 error.summary.title = Mae problem wedi codi
 
 journeyRecovery.continue.title = Mae’n ddrwg gennym – mae problem gyda’r gwasanaeth
@@ -30,7 +31,7 @@ answersDeleted.heading = Gwnaethom ddileu’ch atebion
 salary.backToGuidance = Yn ôl i’r arweiniad
 salary.title = Faint yw’ch cyflog blynyddol?
 salary.heading = Faint yw’ch cyflog blynyddol?
-salary.hint = Er enghraifft, 13000 neu 15959.55
+salary.hint = Er enghraifft, £13000 neu £15,959.55
 salary.error.nonNumeric = Nodwch eich cyflog blynyddol gan ddefnyddio’r rhifau 0 i 9 a phwynt degol yn unig
 salary.error.required =  Nodwch eich cyflog blynyddol
 salary.error.invalidNumeric = Nodwch eich cyflog blynyddol gan ddefnyddio hyd at 2 bwynt degol, er enghraifft 10.75
